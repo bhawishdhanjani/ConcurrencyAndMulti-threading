@@ -11,6 +11,6 @@ public class DownloadFileTask implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Downloading Completed" + Thread.currentThread().getName());
+        System.out.println("Downloading Completed " + Thread.currentThread().getName());
     }
 }
