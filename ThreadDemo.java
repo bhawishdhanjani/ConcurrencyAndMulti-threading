@@ -6,21 +6,20 @@ import java.util.List;
 public class ThreadDemo {
     public static void show(){
         DownloadStatus status = new DownloadStatus();
-        Thread thread1 = new Thread(new DownloadFileTask(status));
-        Thread thread2 = new Thread(()->{
-            while (!status.isDone()){
-                synchronized (status){
-                    try {
-                        status.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+        List<Thread> threads = new ArrayList<>();
+        for (int i = 0 ; i<10 ; i++) {
+            Thread thread = new Thread(new DownloadFileTask(status));
+            threads.add(thread);
+            thread.start();
+        }
+        for (var thread: threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            System.out.println(status.getTotalByteDownload());
-        });
-        thread1.start();
-        thread2.start();
+        }
+        System.out.println(status.getTotalByteDownload());
     }
 
 }

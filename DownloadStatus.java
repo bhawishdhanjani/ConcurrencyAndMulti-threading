@@ -1,24 +1,13 @@
 package ConcurrencyAndMultiThreading;
+
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class DownloadStatus {
-    private int totalByte;
-
-    private volatile boolean isDone;
-
-    private Object totalByteLock = new Object();
+    private AtomicInteger totalByte = new AtomicInteger();
     public int getTotalByteDownload() {
-        return totalByte;
+        return totalByte.get();
     }
-
     public void incrementTotalByte(){
-        synchronized (totalByteLock){
-            totalByte++;
-        }
-    }
-    public boolean isDone() {
-        return isDone;
-    }
-
-    public void done() {
-        isDone = true;
+        totalByte.incrementAndGet();
     }
 }
