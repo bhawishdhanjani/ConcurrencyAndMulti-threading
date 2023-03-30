@@ -1,13 +1,14 @@
 package ConcurrencyAndMultiThreading;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.LongAdder;
 
 public class DownloadStatus {
-    private AtomicInteger totalByte = new AtomicInteger();
+    private LongAdder totalByte = new LongAdder();
     public int getTotalByteDownload() {
-        return totalByte.get();
+        return totalByte.intValue();
     }
     public void incrementTotalByte(){
-        totalByte.incrementAndGet();
+        totalByte.increment();
     }
 }
