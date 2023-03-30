@@ -3,8 +3,8 @@ package ConcurrencyAndMultiThreading;
 public class DownloadFileTask implements Runnable {
     private DownloadStatus status;
 
-    public DownloadFileTask() {
-        this.status = new DownloadStatus();
+    public DownloadFileTask(DownloadStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -15,9 +15,5 @@ public class DownloadFileTask implements Runnable {
             status.incrementTotalByte();
         }
 
-    }
-
-    public DownloadStatus getStatus() {
-        return status;
     }
 }
