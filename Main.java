@@ -2,6 +2,6 @@ package ConcurrencyAndMultiThreading;
 
 public class Main {
     public static void main(String[] args) {
-        JoiningThread.show();
+        ThreadDemo.show();
     }
 }
