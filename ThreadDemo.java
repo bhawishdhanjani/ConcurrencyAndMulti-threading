@@ -1,25 +1,26 @@
 package ConcurrencyAndMultiThreading;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class ThreadDemo {
     public static void show(){
-        DownloadStatus status = new DownloadStatus();
-        List<Thread> threads = new ArrayList<>();
-        for (int i = 0 ; i<10 ; i++) {
-            Thread thread = new Thread(new DownloadFileTask(status));
-            threads.add(thread);
-            thread.start();
+        Collection<Integer> list = Collections.synchronizedCollection(new ArrayList<>());
+        Thread thread1 = new Thread(()->list.addAll(List.of(1,2,3,4,5,6,7,8,9,10)));
+        Thread thread2 = new Thread(()-> list.addAll(List.of(10,11,12,13,14,15,16,17,18,19,20)));
+        thread1.start();
+        thread2.start();
+        try {
+            thread2.join();
+            thread1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        for (var thread: threads) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        System.out.println(status.getTotalByteDownload());
+        System.out.println(list);
+
+
     }
 
 }
